@@ -6,9 +6,10 @@ import "fmt"
 //probabilities of overshooting or undershooting
 //the intended destination.
 
-var p = []float64{0.0, 1.0, 0.0, 0.0, 0.0}
+var p = []float64{0.2, 0.2, 0.2, 0.2, 0.2}
 var world = []string{"green", "red", "red", "green", "green"}
 var measurements = []string{"red", "green"}
+var motions = []int{1, 1}
 var pHit = 0.6
 var pMiss = 0.2
 var pExact = 0.8
@@ -25,9 +26,8 @@ func mod(a, mod int) int {
 
 func sense(p []float64, Z string) []float64 {
 	q := []float64{}
-	hit := 0.0
-	for i := 0; i < len(p)-1; i++ {
-		hit = 0.0
+	for i := 0; i < len(p); i++ {
+		hit := 0.0
 		if Z == world[i] {
 			hit = 1.0
 		}
@@ -35,7 +35,7 @@ func sense(p []float64, Z string) []float64 {
 		q = append(q, n)
 	}
 	s := 0.0
-	for _, num := range p {
+	for _, num := range q {
 		s = s + float64(num)
 	}
 	for i := 0; i < len(p); i++ {
@@ -56,8 +56,9 @@ func move(p []float64, U int) []float64 {
 }
 
 func main() {
-	for i := 0; i < 1000; i++ {
-		p = move(p, 1)
+	for k := 0; k < len(measurements); k++ {
+		p = sense(p, measurements[k])
+		p = move(p, motions[k])
 	}
 	fmt.Printf("%v\n", p)
 }
