@@ -56,5 +56,8 @@ func move(p []float64, U int) []float64 {
 }
 
 func main() {
-	fmt.Printf("%v\n", move(p, 1))
+	for i := 0; i < 1000; i++ {
+		p = move(p, 1)
+	}
+	fmt.Printf("%v\n", p)
 }
