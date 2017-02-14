@@ -2,10 +2,6 @@ package main
 
 import "fmt"
 
-//Modify the move function to accommodate the added
-//probabilities of overshooting or undershooting
-//the intended destination.
-
 var p = []float64{0.2, 0.2, 0.2, 0.2, 0.2}
 var world = []string{"green", "red", "red", "green", "green"}
 var measurements = []string{"red", "green"}
